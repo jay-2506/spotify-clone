@@ -1,0 +1,39 @@
+[
+    {
+        "id": "1",
+        "name": "Chill Vibes",
+        "description": "Relax and focus music",
+        "coverImage": "chill.jpg",
+        "tracks": [
+            {
+                "id": "t1",
+                "title": "Blinding Lights",
+                "artist": "The Weeknd",
+                "duration": 200000,
+                "audioUrl": "/songs/song1.mp3"
+            },
+            {
+                "id": "t2",
+                "title": "Sunflower",
+                "artist": "Post Malone",
+                "duration": 158000,
+                "audioUrl": "/songs/song2.mp3"
+            }
+        ]
+    },
+    {
+        "id": "2",
+        "name": "Workout Energy",
+        "description": "Gym motivation songs",
+        "coverImage": "workout.jpg",
+        "tracks": [
+            {
+                "id": "t3",
+                "title": "Stronger",
+                "artist": "Kanye West",
+                "duration": 311000,
+                "audioUrl": "/songs/song3.mp3"
+            }
+        ]
+    }
+]
