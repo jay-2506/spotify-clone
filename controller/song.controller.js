@@ -1,6 +1,6 @@
-import Album from "../model/album.model.js";
-import cloudinary from "cloudinary";
-import getDataurl from "../utils/url.generator.js";
+// import Album from "../model/album.model.js";
+// // import cloudinary from "cloudinary";
+// // import getDataurl from "../utils/url.generator.js";
 
 export const createAlbum = async (req, res) => {
     try {
@@ -10,10 +10,6 @@ export const createAlbum = async (req, res) => {
             return res.status(400).json({ message: "You are not authorized to create an album" });
         }
         const { title, description } = req.body;
-
-
-
-
         await Album.create({
             title,
             description,
@@ -29,31 +25,74 @@ export const createAlbum = async (req, res) => {
 }
 
 // add song 
+// export const addSong = async (req, res) => {
+//     try {
+//         if (req.user.role !== admin) {
+//             return res.status(400).json({ message: "You are not authorized to add thumbnail" })
+//         }
+
+//         await Song.create({
+//             title,
+//             description,
+
+
+
+//         });
+
+
+
+//         return res.json({ message: "song added successfully" })
+//     }
+//     catch (error) {
+//         console.log(error.message);
+//         return res.status(400).json({ message: "song not added" })
+
+//     }
+// }
+// Thambnail
+
+
+import Album from "../model/album.model.js";
+import Song from "../model/song.model.js";
+
+
+
+// ADD SONG
 export const addSong = async (req, res) => {
     try {
-        if (req.user.role !== admin) {
-            return res.status(400).json({ message: "You are not authorized to add thumbnail" })
+        if (req.user.role !== "admin") {
+            return res.status(403).json({
+                message: "You are not authorized to add a song",
+            });
         }
 
-        await Song.create({
+        const { title, description, audioUrl, album } = req.body;
+
+        if (!title || !audioUrl) {
+            return res.status(400).json({
+                message: "Title and audioUrl are required",
+            });
+        }
+
+        const newSong = await Song.create({
             title,
             description,
-
-
-
+            audioUrl,
+            album,
         });
 
-
-
-        return res.json({ message: "song added successfully" })
-    }
-    catch (error) {
+        return res.status(201).json({
+            message: "Song added successfully",
+            song: newSong,
+        });
+    } catch (error) {
         console.log(error.message);
-        return res.status(400).json({ message: "song not added" })
-
+        return res.status(400).json({
+            message: "Song not added",
+        });
     }
-}
-// Thambnail
+};
+
 export const addThumbnail = async (req, res) => {
     try {
         if (req.user.role !== admin) {
@@ -114,3 +153,6 @@ export const deleteSong = async (req, res) => {
         return res.status(400).json({ message: "Song not deleted" });
     }
 }
+
+
+

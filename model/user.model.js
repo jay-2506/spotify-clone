@@ -8,6 +8,13 @@ const userschema = new mongoose.Schema({
         type: String,
         required: true,
         unique: true,
+        validate: {
+            validator: function (value) {
+                const emailRegex =
+                    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
+                return emailRegex.test(value);
+            },
+        },
 
     },
     password: {

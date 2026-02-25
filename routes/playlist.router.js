@@ -1,14 +1,18 @@
 import express from "express";
-import * as ctrl from "../controller/playlist.controller.js";
+import {
+    createPlaylist,
+    getAllPlaylists,
+    getSinglePlaylist,
+    addSongToPlaylist,
+    deletePlaylist
+} from "../controller/playlist.controller.js";
 
 const router = express.Router();
-router.post("/create", ctrl.createPlaylist)
-// Get all playlists
-router.get("/", ctrl.getAllPlaylists);
 
-// Get single playlist
-router.get("/:id", ctrl.getSinglePlaylist);
-
-
+router.post("/create", createPlaylist);
+router.get("/", getAllPlaylists);
+router.get("/:id/:songId", getSinglePlaylist);
+router.post("/:playlistId/add-song/:songId", addSongToPlaylist);
+router.delete("/:id", deletePlaylist);
 
 export default router;
