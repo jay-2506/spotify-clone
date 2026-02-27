@@ -22,13 +22,14 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "https://f-spotify-clone.vercel.app/",
+    origin: "*",
     credentials: true,
   }),
 );
 app.use(express.static("public"));
 app.use(express.json());
 const port = process.env.PORT;
+app.get("/health", () => "Server is running");
 app.use("/api", userRouter);
 app.use("/api/song", songRouter);
 app.use("/api/playlist", playlistRouter);
