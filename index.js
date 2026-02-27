@@ -22,10 +22,11 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: "*",
-    credentials: true,
+    origin: "https://f-spotify-clone.netlify.app", // your frontend URL
+    credentials: true, // allow cookies
   }),
 );
+
 app.use(express.static("public"));
 app.use(express.json());
 const port = process.env.PORT;
