@@ -14,22 +14,24 @@ connectDB();
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
-})
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
 const app = express();
 app.use(cookieParser());
 
-app.use(cors({
-  origin: "http://localhost:5173",
-  credentials: true
-}));
-app.use(express.static("public"))
-app.use(express.json())
+app.use(
+  cors({
+    origin: "https://f-spotify-clone.vercel.app/",
+    credentials: true,
+  }),
+);
+app.use(express.static("public"));
+app.use(express.json());
 const port = process.env.PORT;
-app.use("/api", userRouter)
-app.use("/api/song", songRouter)
-app.use("/api/playlist", playlistRouter)
+app.use("/api", userRouter);
+app.use("/api/song", songRouter);
+app.use("/api/playlist", playlistRouter);
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
