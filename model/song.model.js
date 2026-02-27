@@ -17,9 +17,9 @@ const songSchema = new mongoose.Schema(
         thumbnail: {
             type: String,
         },
-        album: {
+        playlist: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Album",
+            ref: "Playlist",
         },
     },
     { timestamps: true }

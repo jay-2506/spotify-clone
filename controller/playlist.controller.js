@@ -84,7 +84,7 @@ export const createPlaylist = async (req, res) => {
         const playlist = await Playlist.create({
             name,
             description
-        });
+        })
 
         res.status(201).json(playlist);
 
@@ -126,7 +126,7 @@ export const addSongToPlaylist = async (req, res) => {
         const { playlistId, songId } = req.params;
 
         const playlist = await Playlist.findById(playlistId);
-        const song = await Song.findById(songId);
+        const song = await Song.findById(songId)
 
         if (!playlist) {
             return res.status(404).json({ message: "Playlist not found" });
@@ -151,7 +151,7 @@ export const addSongToPlaylist = async (req, res) => {
 
 
 
-
+// delete playlist
 export const deletePlaylist = async (req, res) => {
     try {
         const playlist = await Playlist.findByIdAndDelete(req.params.id);
@@ -169,3 +169,60 @@ export const deletePlaylist = async (req, res) => {
 
 
 
+
+// playlist to open songs
+
+export const getPlaylistSongs = async (req, res) => {
+    try {
+        const playlist = await Playlist.findById(req.params.id).populate("tracks");
+
+        if (!playlist) {
+            return res.status(404).json({ message: "Playlist not found" });
+        }
+
+        res.status(200).json(playlist.tracks);
+    } catch (error) {
+        console.log(error.message);
+
+        res.status(500).json({ message: "Playlist song not found" });
+    }
+};
+
+// get single song
+// export const getPlaylistSingleSong = async (req, res) => {
+//     try {
+//         const playlist = await Playlist.findById(req.params.id).populate("songs");
+//         if (!playlist) {
+//             return res.status(404).json({ message: "Songs not found" })
+//         }
+//         res.status(200).json(playlist.Song)
+//     } catch (error) {
+//         console.log(error.message);
+//         res.status(400).json({ message: "Playlist song not found " })
+
+//     }
+// }
+
+export const getSingleSongFromPlaylist = async (req, res) => {
+    try {
+        const { songId } = req.params;
+
+        // Find playlist and populate only matching song
+        const playlist = await Playlist.findById(songId).populate("tracks");
+
+        if (!playlist) {
+            return res.status(404).json({ message: "Playlist not found" });
+        }
+
+
+        res.status(200).json({
+            playlist: playlist.title,
+            song: playlist.tracks[0]
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+// 

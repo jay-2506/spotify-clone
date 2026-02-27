@@ -4,14 +4,18 @@ import {
     getAllPlaylists,
     getSinglePlaylist,
     addSongToPlaylist,
-    deletePlaylist
+    deletePlaylist,
+    getPlaylistSongs,
+
 } from "../controller/playlist.controller.js";
 
 const router = express.Router();
 
 router.post("/create", createPlaylist);
 router.get("/", getAllPlaylists);
-router.get("/:id/:songId", getSinglePlaylist);
+router.get("/:id", getSinglePlaylist);
+router.get("/:id/songs", getPlaylistSongs);
+
 router.post("/:playlistId/add-song/:songId", addSongToPlaylist);
 router.delete("/:id", deletePlaylist);
 
