@@ -55,6 +55,10 @@ const playlistSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    userid: {
+        type: String,
+
+    },
     description: {
         type: String,
         trim: true

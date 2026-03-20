@@ -27,8 +27,9 @@ const userschema = new mongoose.Schema({
 
     },
     playlist: [{
-        type: String,
-        required: true
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Playlist",
+
     }]
 },
     {

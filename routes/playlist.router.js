@@ -8,11 +8,12 @@ import {
     getPlaylistSongs,
 
 } from "../controller/playlist.controller.js";
+import { authMiddleware } from "../middleware/auth.middleware.js";
 
 const router = express.Router();
 
-router.post("/create", createPlaylist);
-router.get("/", getAllPlaylists);
+router.post("/create", authMiddleware, createPlaylist);
+router.get("/", authMiddleware, getAllPlaylists);
 router.get("/:id", getSinglePlaylist);
 router.get("/:id/songs", getPlaylistSongs);
 

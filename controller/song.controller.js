@@ -3,7 +3,8 @@ import Song from "../model/song.model.js";
 
 
 
-// ADD SONG
+
+// // ADD SONG
 export const addSong = async (req, res) => {
     try {
         if (req.user.role !== "admin") {
@@ -39,6 +40,8 @@ export const addSong = async (req, res) => {
     }
 };
 
+
+
 export const addThumbnail = async (req, res) => {
     try {
         if (req.user.role !== admin) {
@@ -55,28 +58,31 @@ export const addThumbnail = async (req, res) => {
     }
 }
 
-// all albums  
-export const getAllAlbums = async (req, res) => {
-    try {
-        const playlists = await Playlist.find();
-        return res.json(playlists);
-    } catch (error) {
-        console.log(error.message);
-        return res.status(400).json({ message: "Albums not found" })
-    }
-}
 
 // all songs
 export const getAllSongs = async (req, res) => {
     try {
-        const songs = await Song.find();
+        const { search } = req.query;
+
+        let filter = {};
+
+        if (search) {
+            filter = {
+                $or: [
+                    { title: { $regex: search, $options: "i" } },
+                    { description: { $regex: search, $options: "i" } }
+                ]
+            };
+        }
+
+        const songs = await Song.find(filter);
         return res.json(songs);
     } catch (error) {
         console.log(error.message);
         return res.status(400).json({ message: "Songs not found" })
     }
 }
-// all songs by album
+// all songs by playlist
 export const getSongsByPlaylist = async (req, res) => {
     try {
         const playlist = await Playlist.findById(req.params.id);

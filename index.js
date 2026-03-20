@@ -5,7 +5,9 @@ import userRouter from "./routes/user.router.js";
 import songRouter from "./routes/song.router.js";
 import playlistRouter from "./routes/playlist.router.js";
 import connectDB from "./config/db.js";
+// import cloudinary from "cloudinary";
 import cloudinary from "cloudinary";
+
 import cors from "cors";
 
 dotenv.config();
